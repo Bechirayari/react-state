@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+// crée un class app 
 class App extends Component {
+  // initialisation du state dans le class composant 
   state = {
     person: {
       fullName: 'John Doe',
@@ -23,6 +24,7 @@ class App extends Component {
   };
 
   render() {
+    // props with destructuring
     const { fullName, bio, imgSrc, profession } = this.state.person;
     const { show, mountTime } = this.state;
     const currentTime = new Date();
