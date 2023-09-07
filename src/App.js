@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from 'react'
+import Portfolio from './conposant/Portfolio'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component{
+  //initialisation du state
+
+  constructor(){
+    super()
+    this.state={
+      name:"marwa",
+      counter:0,
+      show:false
+    }
+  }
+changeName=()=>{
+  this.setState({
+    name:"mariem"
+  })
+}
+  increment=()=>{
+    this.setState({
+      counter : this.state.counter +1
+    })
 }
 
-export default App;
+decrement=()=>{
+  if( this.state.counter >0){
+  this.setState({
+    counter : this.state.counter -1
+  })}
+}
+
+reset=()=>{
+  this.setState({
+    counter : 0
+  })
+}
+toggle=()=>{
+  this.setState({
+    show: !this.state.show
+  })
+}
+ render(){
+  return(
+    <>
+    <h1> State Class Component</h1>
+    <h1>
+      {this.state.name}
+    </h1>
+    <button onClick={this.changeName}> Change name</button>
+    <h1> {this.state.counter}</h1>
+    <button onClick={this.increment}>+</button>
+    <button onClick={()=>this.decrement()}>-</button>
+    <button onClick={()=>this.reset()}>reset</button>
+    <button onClick={()=>this.toggle()}>Show/Hide</button>
+    {this.state.show && <Portfolio/>}
+                 0 *1 =0
+
+
+    </>
+  )
+ }
+
+  }
