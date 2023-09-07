@@ -1,64 +1,51 @@
-import React,{Component} from 'react'
-import Portfolio from './conposant/Portfolio'
+import React, { Component } from 'react';
 
-export default class App extends Component{
-  //initialisation du state
+class App extends Component {
+  state = {
+    person: {
+      fullName: 'John Doe',
+      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imgSrc: 'https://placeimg.com/200/200/people',
+      profession: 'Web Developer',
+    },
+    show: false,
+    mountTime: null,
+  };
 
-  constructor(){
-    super()
-    this.state={
-      name:"marwa",
-      counter:0,
-      show:false
-    }
+  componentDidMount() {
+    this.setState({ mountTime: new Date() });
   }
-changeName=()=>{
-  this.setState({
-    name:"mariem"
-  })
-}
-  increment=()=>{
-    this.setState({
-      counter : this.state.counter +1
-    })
-}
 
-decrement=()=>{
-  if( this.state.counter >0){
-  this.setState({
-    counter : this.state.counter -1
-  })}
-}
+  toggleShow = () => {
+    this.setState((prevState) => ({
+      show: !prevState.show,
+    }));
+  };
 
-reset=()=>{
-  this.setState({
-    counter : 0
-  })
-}
-toggle=()=>{
-  this.setState({
-    show: !this.state.show
-  })
-}
- render(){
-  return(
-    <>
-    <h1> State Class Component</h1>
-    <h1>
-      {this.state.name}
-    </h1>
-    <button onClick={this.changeName}> Change name</button>
-    <h1> {this.state.counter}</h1>
-    <button onClick={this.increment}>+</button>
-    <button onClick={()=>this.decrement()}>-</button>
-    <button onClick={()=>this.reset()}>reset</button>
-    <button onClick={()=>this.toggle()}>Show/Hide</button>
-    {this.state.show && <Portfolio/>}
-                 0 *1 =0
+  render() {
+    const { fullName, bio, imgSrc, profession } = this.state.person;
+    const { show, mountTime } = this.state;
+    const currentTime = new Date();
+    const timeSinceMount = (currentTime - mountTime) / 1000; // Convert to seconds
 
-
-    </>
-  )
- }
-
+    return (
+      <div className="App">
+        <h1>Person Profile</h1>
+        <button onClick={this.toggleShow}>
+          Toggle Profile {show ? 'Off' : 'On'}
+        </button>
+        {show && (
+          <div>
+            <h2>{fullName}</h2>
+            <img src={imgSrc} alt={fullName} />
+            <p>Profession: {profession}</p>
+            <p>Bio: {bio}</p>
+          </div>
+        )}
+        <p>Time since mount: {timeSinceMount.toFixed(2)} seconds</p>
+      </div>
+    );
   }
+}
+
+export default App;
